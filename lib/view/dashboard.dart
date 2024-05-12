@@ -24,8 +24,13 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   List cropList = ['Apple', 'Banana', 'Add More'];
+  var locationList = ['Delhi', 'UP', 'MP'];
+  var districtList = [''];
+  var subDistrictList = [''];
 
   String selectedService = 'Fertilizers', selectedCrop = 'Apple';
+
+  String locationValue = '', districtValue = '', subDistrictValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +113,9 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Expanded(
+                          SizedBox(
+                            height: 80,
+                            width: displayWidth(context),
                             child: GridView.builder(
                               itemCount: serviceList.length,
                               gridDelegate:
@@ -160,12 +167,206 @@ class _DashboardState extends State<Dashboard> {
                               },
                             ),
                           ),
+                          // const SizedBox(height: 20),
+                          // const Text(
+                          //   'Crop',
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //     fontSize: 16,
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 10),
+                          // Row(
+                          //   children: [
+                          //     for (int index = 0;
+                          //         index < cropList.length;
+                          //         index++)
+                          //       Padding(
+                          //         padding: const EdgeInsets.symmetric(
+                          //           horizontal: 5,
+                          //         ),
+                          //         child: InkWell(
+                          //           onTap: () {
+                          //             setState(() {
+                          //               selectedCrop = cropList[index];
+                          //             });
+                          //           },
+                          //           child: Container(
+                          //             padding: const EdgeInsets.symmetric(
+                          //               horizontal: 10,
+                          //               vertical: 3,
+                          //             ),
+                          //             decoration: BoxDecoration(
+                          //               borderRadius: BorderRadius.circular(15),
+                          //               color: selectedCrop == cropList[index]
+                          //                   ? greenColor
+                          //                   : whiteColor,
+                          //               border: Border.all(
+                          //                 color: selectedCrop == cropList[index]
+                          //                     ? greenColor
+                          //                     : blackColor.withOpacity(0.5),
+                          //               ),
+                          //             ),
+                          //             child: Row(
+                          //               children: [
+                          //                 cropList[index]
+                          //                         .toString()
+                          //                         .contains('Add')
+                          //                     ? const CircleAvatar(
+                          //                         radius: 14,
+                          //                         child:
+                          //                             Icon(Icons.add_rounded),
+                          //                       )
+                          //                     : const CircleAvatar(
+                          //                         radius: 14,
+                          //                         child: Image(
+                          //                           image: AssetImage(
+                          //                             'assets/bananas.png',
+                          //                           ),
+                          //                           height: 20,
+                          //                           width: 20,
+                          //                         ),
+                          //                       ),
+                          //                 const SizedBox(width: 5),
+                          //                 Text(
+                          //                   cropList[index],
+                          //                   style: TextStyle(
+                          //                     color: selectedCrop ==
+                          //                             cropList[index]
+                          //                         ? whiteColor
+                          //                         : blackColor,
+                          //                     fontSize: 12,
+                          //                     fontWeight: FontWeight.w500,
+                          //                   ),
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //   ],
+                          // ),
                           const SizedBox(height: 20),
                           const Text(
-                            'Crop',
+                            'Location',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            width: displayWidth(context),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              hint: const Text('State'),
+                              value:
+                                  locationValue.isEmpty ? null : locationValue,
+                              underline: const SizedBox(),
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: locationList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  locationValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Container(
+                            width: displayWidth(context),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              hint: const Text('District'),
+                              value:
+                                  districtValue.isEmpty ? null : districtValue,
+                              underline: const SizedBox(),
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: districtList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  districtValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Container(
+                            width: displayWidth(context),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              hint: const Text('Sub District'),
+                              value: subDistrictValue.isEmpty
+                                  ? null
+                                  : subDistrictValue,
+                              underline: const SizedBox(),
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: subDistrictList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  subDistrictValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                          MaterialButton(
+                            minWidth: displayWidth(context),
+                            color: greenColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.all(14),
+                            onPressed: () {
+                              setState(() {
+                                showFilters = false;
+                              });
+                            },
+                            child: Text(
+                              'APPLY',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: whiteColor,
+                              ),
                             ),
                           ),
                         ],
